@@ -95,9 +95,12 @@ def get_entry_field(algorithm_type):
 
     pb.write_output(search_depth, states[::-1])
 
-    info = ""
 
-    tkinter.messagebox.showinfo("SUCCESS",search_depth)
+    info = "path_to_goal:"+ str(states)+ "\n" +"\n" +  "cost_of_path:"+  str(len(states))+ "\n" + "\n" + "search_depth:"+ str(search_depth)+ "\n"
+    info2 = "cost_of_path:"+ str(len(states))+ "\n"
+    info3 = "search_depth:"+ str(search_depth)+ "\n"
+    #main_info = info+info2+info3
+    tkinter.messagebox.showinfo("SUCCESS",info)
 
 
 
