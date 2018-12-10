@@ -4,6 +4,14 @@ import numpy as np
 import resources
 from search import Search
 
+from tkinter import * 
+import re
+
+
+
+root = Tk()
+root.geometry("500x300")
+
 
 class PuzzleBoard:
 
@@ -72,21 +80,26 @@ class PuzzleBoard:
             file.write('cost_of_path: ' + str(len(states)) + '\n')
             file.write('search_depth: ' + str(search_depth) + '\n')
 
+def get_entry_field(algorithm_type):
+    user_input = e1.get()
+    user_input_str = str(user_input)
+    puzzle_str = user_input_str.split(",")
+    puzzle_state = list(map(int, puzzle_str))
+    pb = PuzzleBoard (puzzle_state)
+    search_depth, states = Search().bfs(pb)
+    pb.write_output(search_depth, states[::-1])
 
+
+
+    
 
 
 def main():
-    puzzle_state = sys.argv[2].split(",")
-    puzzle_state = list(map(int, puzzle_state))
-    pb = PuzzleBoard(puzzle_state)
-    if sys.argv[1].lower() == 'bfs':
-        search_depth, states = Search().bfs(pb)
-    elif sys.argv[1].lower() == 'dfs':
-        search_depth, states = Search().dfs(pb)
-    else:
-        print("Please, check the arguments!")
-
-    pb.write_output(search_depth, states[::-1])
+    global e1
+    e1 = Entry(root)
+    e1.grid(row=0,column=1)
+    Button(root,bg="#BEBEBE", text='BFS', font='Helvetica 12 bold',command=get_entry_field).grid(row=2, column=5)
+    root.mainloop()
 
 
 if __name__ == '__main__':
