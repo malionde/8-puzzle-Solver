@@ -5,6 +5,8 @@ import resources
 from search import Search
 
 from tkinter import * 
+from tkinter.filedialog import askopenfilename
+import tkinter.messagebox
 import re
 
 
@@ -86,8 +88,16 @@ def get_entry_field(algorithm_type):
     puzzle_str = user_input_str.split(",")
     puzzle_state = list(map(int, puzzle_str))
     pb = PuzzleBoard (puzzle_state)
-    search_depth, states = Search().bfs(pb)
+    if algorithm_type == 1:
+        search_depth, states = Search().bfs(pb)
+    elif algorithm_type == 2: 
+        search_depth, states = Search().dfs(pb)
+
     pb.write_output(search_depth, states[::-1])
+
+    info = ""
+
+    tkinter.messagebox.showinfo("SUCCESS",search_depth)
 
 
 
@@ -98,7 +108,9 @@ def main():
     global e1
     e1 = Entry(root)
     e1.grid(row=0,column=1)
-    Button(root,bg="#BEBEBE", text='BFS', font='Helvetica 12 bold',command=get_entry_field).grid(row=2, column=5)
+    Button(root,bg="#BEBEBE", text='BFS', font='Helvetica 12 bold',command=lambda:get_entry_field(1)).grid(row=2, column=5)
+    Button(root,bg="#BEBEBE", text='DFS', font='Helvetica 12 bold',command=lambda:get_entry_field(2)).grid(row=3, column=5)
+
     root.mainloop()
 
 

@@ -1,3 +1,3 @@
-path_to_goal: ['Right', 'Down', 'Left', 'Up', 'Right', 'Right', 'Down', 'Left', 'Left', 'Up', 'Right', 'Up', 'Right', 'Down', 'Left', 'Down', 'Right', 'Up', 'Up', 'Left', 'Left']
-cost_of_path: 21
-search_depth: 21
+path_to_goal: ['Up']
+cost_of_path: 1
+search_depth: 1
