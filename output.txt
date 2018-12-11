@@ -1,3 +1,6 @@
-path_to_goal: [['Right', 'Down']]
+3 1 2
+0 4 5
+6 7 8
+path_to_goal: [['Down']]
 cost_of_path: 1
-search_depth: 2
+search_depth: 1

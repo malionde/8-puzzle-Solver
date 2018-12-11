@@ -1,7 +1,9 @@
 from collections import deque
 import numpy as np
+import sys
 
 class Search:
+ 
 
     def __init__(self):
         self.path_to_solution = []
@@ -53,7 +55,7 @@ class Search:
 
 
     def path_trace(self, path_to_solution, child):
-       
+        global alist
         alist = []
         print("Tracing path...")
         while child.parent:
@@ -65,8 +67,14 @@ class Search:
             self.states.append(child.state)
             path_to_solution.append(child)
             child = parent
+     
+
         #if parent.goal_test() != True:
         alist.reverse()
+
         first.print_puzzle()
+        
         for i in alist:
             i.print_puzzle()
+
+               

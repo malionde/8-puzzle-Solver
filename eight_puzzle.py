@@ -16,7 +16,7 @@ root.geometry("500x300")
 
 
 class PuzzleBoard:
-
+    
     def __init__(self, puzzle_state, parent=None, state="Initial"):
         self.parent = parent
         self.children = []
@@ -78,9 +78,22 @@ class PuzzleBoard:
 
     def write_output(self, search_depth, slist):
         with open('output.txt', "w") as file:
+            m = 0
+            file.write('Solution is : '  + '\n')
+            while (m < 9):
+         
+                file.write(str(self.puzzle_state[m]) + 
+                    ' ' +
+                    str(self.puzzle_state[m +
+                                            1]) +
+                    ' ' +
+                    str(self.puzzle_state[m +
+                                            2]) +'\n' + '\n')
+                m += 3
             file.write('path_to_goal: ' + str(slist) + '\n')
             file.write('cost_of_path: ' + str(len(slist)) + '\n')
             file.write('search_depth: ' + str(search_depth) + '\n')
+            
 
 def get_entry_field(algorithm_type):
     user_input = e1.get()
