@@ -73,8 +73,11 @@ class Search:
         alist.reverse()
 
         first.print_puzzle()
+        #f = open("output2.txt", "a")
         
         for i in alist:
-            i.print_puzzle()
+            #i.print_puzzle()
+            i.print_puzzle2()
 
-               
+            
+          #  f.write('OLDUUUUUUUUU: ' + i.print_puzzle() + '\n')

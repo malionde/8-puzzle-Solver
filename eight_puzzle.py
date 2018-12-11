@@ -1,6 +1,7 @@
 import sys
 import math
 import numpy as np
+import time
 
 from search import Search
 
@@ -17,7 +18,7 @@ root.geometry("500x300")
 
 class PuzzleBoard:
     
-    def __init__(self, puzzle_state, parent=None, state="Initial"):
+    def __init__(self, puzzle_state, parent=None,  state="Initial"):
         self.parent = parent
         self.children = []
         self.puzzle_state = np.array(puzzle_state)
@@ -66,6 +67,24 @@ class PuzzleBoard:
                                         2]))
             m += 3
         print()
+
+    def print_puzzle2(self):
+        timestr = time.strftime("%H%M%S")
+       
+        f = open(timestr,"a")
+        m = 0
+        while (m < 9):
+            f.write(str(self.puzzle_state[m]) +
+                  ' ' +
+                  str(self.puzzle_state[m +
+                                        1]) +
+                  ' ' +
+                  str(self.puzzle_state[m +
+                                        2])+'\n' + '\n')
+            m += 3
+        f.write('******' + '\n')
+
+
 
     def expand(self):
         x = list(self.puzzle_state).index(0)
