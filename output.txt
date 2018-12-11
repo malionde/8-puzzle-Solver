@@ -1,6 +1,10 @@
-3 1 2
-0 4 5
-6 7 8
-path_to_goal: [['Down']]
+Puzzle is : 
+6 2 0
+
+3 8 1
+
+5 4 7
+
+Solution is : [['Up', 'Right', 'Down', 'Right', 'Up', 'Up', 'Left', 'Left', 'Down', 'Right', 'Down', 'Left', 'Up', 'Up', 'Right', 'Down', 'Right', 'Up', 'Left', 'Left', 'Down', 'Right', 'Right', 'Down']]
 cost_of_path: 1
-search_depth: 1
+search_depth: 24

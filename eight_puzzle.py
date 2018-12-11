@@ -79,7 +79,8 @@ class PuzzleBoard:
     def write_output(self, search_depth, slist):
         with open('output.txt', "w") as file:
             m = 0
-            file.write('Solution is : '  + '\n')
+            file.write('Puzzle is : '  + '\n')
+
             while (m < 9):
          
                 file.write(str(self.puzzle_state[m]) + 
@@ -90,9 +91,10 @@ class PuzzleBoard:
                     str(self.puzzle_state[m +
                                             2]) +'\n' + '\n')
                 m += 3
-            file.write('path_to_goal: ' + str(slist) + '\n')
-            file.write('cost_of_path: ' + str(len(slist)) + '\n')
-            file.write('search_depth: ' + str(search_depth) + '\n')
+            
+            file.write('Solution is : ' + str(slist) + '\n')
+           # file.write('cost_of_path: ' + str(len(slist)) + '\n')
+            file.write('Search Depts is : ' + str(search_depth) + '\n')
             
 
 def get_entry_field(algorithm_type):
@@ -112,7 +114,7 @@ def get_entry_field(algorithm_type):
     pb.write_output(search_depth, slist)
 
 
-    info = "path_to_goal:"+ str(slist)+ "\n" +"\n" +  "cost_of_path:"+  str(len(states))+ "\n" + "\n" + "search_depth:"+ str(search_depth)+ "\n"
+    info = "Solution is:"+ str(slist)+ "\n" +"\n" + "Search Depts is :"+ str(search_depth)+ "\n"
     
     #main_info = info+info2+info3
     tkinter.messagebox.showinfo("SUCCESS",info)
