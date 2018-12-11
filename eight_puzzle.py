@@ -1,7 +1,7 @@
 import sys
 import math
 import numpy as np
-import resources
+
 from search import Search
 
 from tkinter import * 
@@ -31,22 +31,22 @@ class PuzzleBoard:
     def move_up(self, i):
         if i - self.column_size >= 0:
             puzzle_new, parent = self.swap(i, i - 3)
-            return PuzzleBoard(puzzle_new, parent, state='Up')
+            return PuzzleBoard(puzzle_new, parent, state='Down')
 
     def move_down(self, i):
         if i + self.column_size <= len(self.puzzle_state) - 1:
             puzzle_new, parent = self.swap(i, i + 3)
-            return PuzzleBoard(puzzle_new, parent, state='Down')
+            return PuzzleBoard(puzzle_new, parent, state='Up')
 
     def move_left(self, i):
         if i % self.column_size > 0:
             puzzle_new, parent = self.swap(i, i - 1)
-            return PuzzleBoard(puzzle_new, parent, state='Left')
+            return PuzzleBoard(puzzle_new, parent, state='Right')
 
     def move_right(self, i):
         if i % self.column_size < self.column_size - 1:
             puzzle_new, parent = self.swap(i, i + 1)
-            return PuzzleBoard(puzzle_new, parent, state='Right')
+            return PuzzleBoard(puzzle_new, parent, state='Left')
 
     def swap(self, index_one, index_two):
         puzzle_new = self.puzzle_state.copy()
@@ -76,10 +76,10 @@ class PuzzleBoard:
         self.children = list(filter(None, self.children))
         return self.children
 
-    def write_output(self, search_depth, states):
+    def write_output(self, search_depth, slist):
         with open('output.txt', "w") as file:
-            file.write('path_to_goal: ' + str(states) + '\n')
-            file.write('cost_of_path: ' + str(len(states)) + '\n')
+            file.write('path_to_goal: ' + str(slist) + '\n')
+            file.write('cost_of_path: ' + str(len(slist)) + '\n')
             file.write('search_depth: ' + str(search_depth) + '\n')
 
 def get_entry_field(algorithm_type):
@@ -93,12 +93,14 @@ def get_entry_field(algorithm_type):
     elif algorithm_type == 2: 
         search_depth, states = Search().dfs(pb)
 
-    pb.write_output(search_depth, states[::-1])
+    slist=[]
+    slist.append(states[::-1])
+    slist.reverse()
+    pb.write_output(search_depth, slist)
 
 
-    info = "path_to_goal:"+ str(states)+ "\n" +"\n" +  "cost_of_path:"+  str(len(states))+ "\n" + "\n" + "search_depth:"+ str(search_depth)+ "\n"
-    info2 = "cost_of_path:"+ str(len(states))+ "\n"
-    info3 = "search_depth:"+ str(search_depth)+ "\n"
+    info = "path_to_goal:"+ str(slist)+ "\n" +"\n" +  "cost_of_path:"+  str(len(states))+ "\n" + "\n" + "search_depth:"+ str(search_depth)+ "\n"
+    
     #main_info = info+info2+info3
     tkinter.messagebox.showinfo("SUCCESS",info)
 

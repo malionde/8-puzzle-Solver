@@ -53,6 +53,7 @@ class Search:
 
 
     def path_trace(self, path_to_solution, child):
+       
         alist = []
         print("Tracing path...")
         while child.parent:
