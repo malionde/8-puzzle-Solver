@@ -69,7 +69,7 @@ class PuzzleBoard:
         print()
 
     def print_puzzle2(self):
-        timestr = time.strftime("%H%M%S")
+        timestr = time.strftime("%H%M")
        
         f = open(timestr,"a")
         m = 0
@@ -111,9 +111,9 @@ class PuzzleBoard:
                                             2]) +'\n' + '\n')
                 m += 3
             
-            file.write('Solution is : ' + str(slist) + '\n')
+            file.write('\n'+'Solution is : ' + str(slist) + '\n'+ '\n'+ '\n')
            # file.write('cost_of_path: ' + str(len(slist)) + '\n')
-            file.write('Search Depts is : ' + str(search_depth) + '\n')
+            file.write('Search Depts is : ' + str(search_depth) + '\n'+ '\n')
             
 
 def get_entry_field(algorithm_type):
