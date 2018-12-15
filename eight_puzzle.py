@@ -13,59 +13,60 @@ import re
 
 
 root = Tk()
-root.geometry("500x300")
+root.title("8-PUZZLE SOLVER")
+root.geometry("600x100")
 
 
-class PuzzleBoard:
+class eightPuzzle:
     
-    def __init__(self, puzzle_state, parent=None,  state="Initial"):
+    def __init__(self, puzzle_status, parent=None,  state="Initial"):
         self.parent = parent
         self.children = []
-        self.puzzle_state = np.array(puzzle_state)
-        self.column_size = int(math.sqrt(len(puzzle_state)))
+        self.puzzle_status = np.array(puzzle_status)
+        self.column_size = int(math.sqrt(len(puzzle_status)))
         self.state = state
 
     def goal_test(self):
-        if np.array_equal(self.puzzle_state, np.arange(9)):
+        if np.array_equal(self.puzzle_status, np.arange(9)):
             return True
 
-    def move_up(self, i):
+    def move_down(self, i):
         if i - self.column_size >= 0:
             puzzle_new, parent = self.swap(i, i - 3)
-            return PuzzleBoard(puzzle_new, parent, state='Down')
+            return eightPuzzle(puzzle_new, parent, state='Down')
 
-    def move_down(self, i):
-        if i + self.column_size <= len(self.puzzle_state) - 1:
+    def move_up(self, i):
+        if i + self.column_size <= len(self.puzzle_status) - 1:
             puzzle_new, parent = self.swap(i, i + 3)
-            return PuzzleBoard(puzzle_new, parent, state='Up')
-
-    def move_left(self, i):
-        if i % self.column_size > 0:
-            puzzle_new, parent = self.swap(i, i - 1)
-            return PuzzleBoard(puzzle_new, parent, state='Right')
+            return eightPuzzle(puzzle_new, parent, state='Up')
 
     def move_right(self, i):
+        if i % self.column_size > 0:
+            puzzle_new, parent = self.swap(i, i - 1)
+            return eightPuzzle(puzzle_new, parent, state='Right')
+
+    def move_left(self, i):
         if i % self.column_size < self.column_size - 1:
             puzzle_new, parent = self.swap(i, i + 1)
-            return PuzzleBoard(puzzle_new, parent, state='Left')
+            return eightPuzzle(puzzle_new, parent, state='Left')
 
     def swap(self, index_one, index_two):
-        puzzle_new = self.puzzle_state.copy()
+        puzzle_new = self.puzzle_status.copy()
         puzzle_new[index_one], puzzle_new[index_two] = puzzle_new[index_two], puzzle_new[index_one]
         return puzzle_new, self
 
     def print_puzzle(self):
-        m = 0
-        while (m < 9):
+        a = 0
+        while (a < 9):
             print()
-            print(str(self.puzzle_state[m]) +
+            print(str(self.puzzle_status[a]) +
                   ' ' +
-                  str(self.puzzle_state[m +
+                  str(self.puzzle_status[a +
                                         1]) +
                   ' ' +
-                  str(self.puzzle_state[m +
+                  str(self.puzzle_status[a +
                                         2]))
-            m += 3
+            a += 3
         print()
 
     def print_puzzle2(self):
@@ -74,12 +75,12 @@ class PuzzleBoard:
         f = open(timestr,"a")
         m = 0
         while (m < 9):
-            f.write(str(self.puzzle_state[m]) +
+            f.write(str(self.puzzle_status[m]) +
                   ' ' +
-                  str(self.puzzle_state[m +
+                  str(self.puzzle_status[m +
                                         1]) +
                   ' ' +
-                  str(self.puzzle_state[m +
+                  str(self.puzzle_status[m +
                                         2])+'\n' + '\n')
             m += 3
         f.write('******' + '\n')
@@ -87,11 +88,11 @@ class PuzzleBoard:
 
 
     def expand(self):
-        x = list(self.puzzle_state).index(0)
-        self.children.append(self.move_up(x))
+        x = list(self.puzzle_status).index(0)
         self.children.append(self.move_down(x))
-        self.children.append(self.move_left(x))
+        self.children.append(self.move_up(x))
         self.children.append(self.move_right(x))
+        self.children.append(self.move_left(x))
         self.children = list(filter(None, self.children))
         return self.children
 
@@ -102,12 +103,12 @@ class PuzzleBoard:
 
             while (m < 9):
          
-                file.write(str(self.puzzle_state[m]) + 
+                file.write(str(self.puzzle_status[m]) + 
                     ' ' +
-                    str(self.puzzle_state[m +
+                    str(self.puzzle_status[m +
                                             1]) +
                     ' ' +
-                    str(self.puzzle_state[m +
+                    str(self.puzzle_status[m +
                                             2]) +'\n' + '\n')
                 m += 3
             
@@ -116,12 +117,12 @@ class PuzzleBoard:
             file.write('Search Depts is : ' + str(search_depth) + '\n'+ '\n')
             
 
-def get_entry_field(algorithm_type):
+def input_field(algorithm_type):
     user_input = e1.get()
     user_input_str = str(user_input)
     puzzle_str = user_input_str.split(",")
-    puzzle_state = list(map(int, puzzle_str))
-    pb = PuzzleBoard (puzzle_state)
+    puzzle_status = list(map(int, puzzle_str))
+    pb = eightPuzzle (puzzle_status)
     if algorithm_type == 1:
         search_depth, states = Search().bfs(pb)
     elif algorithm_type == 2: 
@@ -146,10 +147,10 @@ def get_entry_field(algorithm_type):
 def main():
     global e1
     e1 = Entry(root)
-    e1.grid(row=0,column=1)
-    Button(root,bg="#BEBEBE", text='BFS', font='Helvetica 12 bold',command=lambda:get_entry_field(1)).grid(row=2, column=5)
-    Button(root,bg="#BEBEBE", text='DFS', font='Helvetica 12 bold',command=lambda:get_entry_field(2)).grid(row=3, column=5)
-
+    e1.grid(row=25,column=10,ipadx=100,ipady=20)
+    Button(root,bg="#BEBEBE", text='BFS', width=10, font='Helvetica 12 bold',command=lambda:input_field(1)).grid(row=8, column=5)
+    Button(root,bg="#BEBEBE", text='DFS', width=10, font='Helvetica 12 bold',command=lambda:input_field(2)).grid(row=3, column=5)
+    
     root.mainloop()
 
 

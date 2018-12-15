@@ -12,49 +12,49 @@ class Search:
     def bfs(self, puzzle_board): #Bread First Search 
         global first
         first=puzzle_board
-        frontier = deque() #frontier adında bir deque objesi oluşturduk.
-        explored = set() # explored adında bir sırası önemli olmayan bir obje oluşturduk. 
-        frontier.append(puzzle_board) # puzzle boardda bulunan verileri sırasıyla frontier değişkenine atıyoruz. 
+        border = deque() #border adında bir deque objesi oluşturduk.
+        visited = set() # visited adında bir sırası önemli olmayan bir obje oluşturduk. 
+        border.append(puzzle_board) # puzzle boardda bulunan verileri sırasıyla border değişkenine atıyoruz. 
 
-        while frontier:
-            puzzle = frontier.popleft() # popleft kullanarak puzzle board'dan eklediğimiz verileri soldan sağa doğru sırayla çıkartıyoruz.
-            explored.add(tuple(puzzle.puzzle_state)) # 
+        while border:
+            puzzle = border.popleft() # popleft kullanarak puzzle board'dan eklediğimiz verileri soldan sağa doğru sırayla çıkartıyoruz.
+            visited.add(tuple(puzzle.puzzle_status)) # 
 
             if puzzle.goal_test():
                 self.path_to_solution = []
-                self.path_trace(self.path_to_solution, puzzle)
+                self.track(self.path_to_solution, puzzle)
                 return len(self.path_to_solution), self.states
 
             children = puzzle.expand()
 
             for c in children[::-1]:
-                if tuple(c.puzzle_state) not in explored:
-                    frontier.append(c)
-                    explored.add(tuple(c.puzzle_state))
+                if tuple(c.puzzle_status) not in visited:
+                    border.append(c)
+                    visited.add(tuple(c.puzzle_status))
 
     def dfs(self, puzzle_board):
-        frontier = []
-        explored = set()
-        frontier.append(puzzle_board)
+        border = []
+        visited = set()
+        border.append(puzzle_board)
 
-        while frontier:
-            puzzle = frontier.pop()
-            explored.add(tuple(puzzle.puzzle_state))
+        while border:
+            puzzle = border.pop()
+            visited.add(tuple(puzzle.puzzle_status))
 
             if puzzle.goal_test():
                 self.path_to_solution = []
-                self.path_trace(self.path_to_solution, puzzle)
+                self.track(self.path_to_solution, puzzle)
                 return len(self.path_to_solution), self.states
 
             children = puzzle.expand()
 
             for c in children[::-1]:
-                if tuple(c.puzzle_state) not in explored:
-                    frontier.append(c)
-                    explored.add(tuple(c.puzzle_state))
+                if tuple(c.puzzle_status) not in visited:
+                    border.append(c)
+                    visited.add(tuple(c.puzzle_status))
 
 
-    def path_trace(self, path_to_solution, child):
+    def track(self, path_to_solution, child):
         global alist
         alist = []
         print("Tracing path...")
