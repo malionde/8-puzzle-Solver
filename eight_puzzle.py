@@ -13,8 +13,9 @@ import re
 
 
 root = Tk()
+root.configure(background="gray")
 root.title("8-PUZZLE SOLVER")
-root.geometry("600x100")
+root.geometry("450x200")
 
 
 class eightPuzzle:
@@ -72,7 +73,7 @@ class eightPuzzle:
     def print_puzzle2(self):
         timestr = time.strftime("%H%M")
        
-        f = open(timestr,"a")
+        f = open("DetailedSolution"+timestr+".txt","a")
         m = 0
         while (m < 9):
             f.write(str(self.puzzle_status[m]) +
@@ -134,7 +135,7 @@ def input_field(algorithm_type):
     pb.write_output(search_depth, slist)
 
 
-    info = "Solution is:"+ str(slist)+ "\n" +"\n" + "Search Depts is :"+ str(search_depth)+ "\n"
+    info = "Solution is:"+ str(slist)+ "\n" +"\n" + "Search Depts is :"+ str(search_depth)+ "\n" +"\n" + "If you want detail solutions, you can check the project folder!"
     
     #main_info = info+info2+info3
     tkinter.messagebox.showinfo("SUCCESS",info)
@@ -146,10 +147,16 @@ def input_field(algorithm_type):
 
 def main():
     global e1
-    e1 = Entry(root)
-    e1.grid(row=25,column=10,ipadx=100,ipady=20)
-    Button(root,bg="#BEBEBE", text='BFS', width=10, font='Helvetica 12 bold',command=lambda:input_field(1)).grid(row=8, column=5)
-    Button(root,bg="#BEBEBE", text='DFS', width=10, font='Helvetica 12 bold',command=lambda:input_field(2)).grid(row=3, column=5)
+    e1 = Entry(root,font='Helvetica 12 bold', justify='center')
+    e1.insert(0, '3,1,2,0,4,5,6,7,8')
+    e1.grid(row=3,column=1,ipadx=100,ipady=10,padx=30, pady=10)
+    
+
+    w = Message(root,bg="#BEBEBE", text="Please Select Solving Algorithm", font='Helvetica 10 bold',width=300)
+    w.grid(row=1, column=1,pady=10)
+
+    Button(root,bg="#BEBEBE", text='BFS', width=10, font='Helvetica 12 bold',command=lambda:input_field(1)).grid(row=4, column=1)
+    Button(root,bg="#BEBEBE", text='DFS', width=10, font='Helvetica 12 bold',command=lambda:input_field(2)).grid(row=5, column=1)
     
     root.mainloop()
 

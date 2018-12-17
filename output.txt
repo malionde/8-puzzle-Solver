@@ -1,13 +1,13 @@
 Puzzle is : 
 3 1 2
 
-4 0 5
+0 4 5
 
 6 7 8
 
 
-Solution is : [['Right', 'Down']]
+Solution is : [['Down']]
 
 
-Search Depts is : 2
+Search Depts is : 1
 
