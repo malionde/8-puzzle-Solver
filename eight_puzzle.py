@@ -114,7 +114,6 @@ class eightPuzzle:
                 m += 3
             
             file.write('\n'+'Solution is : ' + str(slist) + '\n'+ '\n'+ '\n')
-           # file.write('cost_of_path: ' + str(len(slist)) + '\n')
             file.write('Search Depts is : ' + str(search_depth) + '\n'+ '\n')
             
 
@@ -137,7 +136,6 @@ def input_field(algorithm_type):
 
     info = "Solution is:"+ str(slist)+ "\n" +"\n" + "Search Depts is :"+ str(search_depth)+ "\n" +"\n" + "If you want detail solutions, you can check the project folder!"
     
-    #main_info = info+info2+info3
     tkinter.messagebox.showinfo("SUCCESS",info)
 
 
